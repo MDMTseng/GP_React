@@ -56,20 +56,18 @@ var DropDownComponent = React.createClass({
 
   handleClick: function(event,caller) {
     this.props.onClick(event,caller);
-    //this.setState({ifShowDropDown:!this.state.ifShowDropDown});
-    console.log("handleClick");
   },
   shouldComponentUpdate: function(nextProps, nextState) {
     return true;
   },
   render: function() {
     var rows = [];
-    
+
     for( var menu_sec of this.props.dropMenu){
-      
-      
+
+
       var group = [];
-      
+
       for( var ele of menu_sec.ele){
         group.push(
           <ButtonComponent
@@ -80,7 +78,7 @@ var DropDownComponent = React.createClass({
             onClick={menu_sec.callBack}/>
         );
       }
-      
+
 
       var classX="blockS black HX"+menu_sec.ele.length+" ";
 
@@ -111,10 +109,10 @@ var DropDownComponent = React.createClass({
           className="blockS black HX0_1 ">
         </div>
       );
-      
+
     }
-    
-    
+
+
 
     var divStyle = {width:'300px'};
     return(

@@ -159,12 +159,3 @@ ReactDOM.render(
   ,
   document.getElementById('container')
 );
-
-
-const myEmitter = new EventEmitter();
-// Only do this once so we don't loop forever
-console.log(myEmitter);
-myEmitter.on('event', () => {
-  console.log('A');
-});
-myEmitter.emit('event');
