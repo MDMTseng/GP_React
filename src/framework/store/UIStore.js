@@ -7,6 +7,7 @@ export class UI_store extends BaseStore{
     super();
     this.DataBase={};
     this.DataBase[DISP_EVE_UI.MENU_CLICKED]=false;
+    this.DataBase[DISP_EVE_UI.UI_Ver]=0;
   }
 
   GetAll()
@@ -29,7 +30,8 @@ export class UI_store extends BaseStore{
 
         break;
 
-        case DISP_EVE_UI.UI_Flush:
+        case DISP_EVE_UI.UI_Ver:
+          this.DataBase[DISP_EVE_UI.UI_Ver]=data;
           this.__changed = true;
 
         break;

@@ -16,52 +16,57 @@ import {EventEmitter} from 'events';
 class MenuComponent extends React.Component{
 
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      ifShowDropDown:false,
-      dropMenu:
-      [{
-        id:"MAIN",
-        text:"MAIN",
-        ele:[
-        {
-          id:"new FILE",
-          text:"new file",
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        ifShowDropDown:false,
+        UI_Ver:0
+      };
+
+      this.dropMenu =
+        [{
+          id:"MAIN",
+          text:"MAIN",
+          ele:[
+          {
+            id:"new FILE",
+            text:"new file",
+          },
+          {
+            id:"save",
+            text:"save",
+          }],
+          callBack:this.handleClick
         },
         {
-          id:"save",
-          text:"save",
-        }],
-        callBack:this.handleClick
-      },
-      {
-        id:"STEP",
-        text:"STEP",
-        ele:[{
-          id:"prev",
-          text:"prev",
+          id:"STEP",
+          text:"STEP",
+          ele:[{
+            id:"prev",
+            text:"prev",
+          },
+          {
+            id:"next",
+            text:"next",
+          }],
+          callBack:this.handleClick
         },
         {
-          id:"next",
-          text:"next",
-        }],
-        callBack:this.handleClick
-      },
-      {
-        id:"OPS",
-        text:"OPS",
-        ele:[{
-          id:"recent files",
-          text:"recent files",
-        },
-        {
-          id:"recent prj",
-          text:"recent prj",
-        }],
-        callBack:this.handleClick
-      },
-    ]};
+          id:"OPS",
+          text:"OPS",
+          ele:[{
+            id:"recent files",
+            text:"recent files",
+          },
+          {
+            id:"recent prj",
+            text:"recent prj",
+          }],
+          callBack:this.handleClick
+        }];
+
+        this.UIUpdate=false;
 
     }
     handleKey(e) {
@@ -73,12 +78,15 @@ class MenuComponent extends React.Component{
     componentWillMount()
     {
       UIStore.addListener(()=>{
+        //console.log(UIStore.GetAll());
         this.setState(UIStore.GetAll());
       });
+      setInterval(()=>{
+        Dispacher.dispatch(DISP_EVE_UI.UI_Ver,UIStore.GetAll()[DISP_EVE_UI.UI_Ver]+1);
+      },100);
       //console.log(X2);
     }
     handleClick(event,caller) {
-      Dispacher.dispatch(DISP_EVE_UI.UI_Flush,null);
       //Dispacher.dispatch(DISP_EVE_UI.MENU_CLICKED,{time:new Date().getTime()});
     }
 
@@ -90,16 +98,26 @@ class MenuComponent extends React.Component{
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-      return true;
+      if(nextState.UI_Ver != this.state.UI_Ver )
+      {
+        if(this.UIUpdate)
+        {
+          this.UIUpdate=false;
+          return true;
+        }
+        return false;
+      }
+      this.UIUpdate=true;
+      return false;
     }
     render() {
       return(
         <div className="blockS showOverFlow">
           <DropDownComponent
             className="width2"
-            dropMenu={this.state.dropMenu}
+            dropMenu={this.dropMenu}
             ifShowDropDown={this.state.ifShowDropDown}
-            onClick={(event,caller)=>this.handleDropDownClick(event,caller)}
+            onClick={this.handleDropDownClick.bind(this)}
             />
           <input
             className="blockS width8"
