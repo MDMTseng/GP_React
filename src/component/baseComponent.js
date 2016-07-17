@@ -47,18 +47,11 @@ var DropDownWarp = React.createClass({
 
 var DropDownComponent = React.createClass({
 
-  getInitialState: function() {
-    return {
-      ifShowDropDown:false
-    };
-  },
-
-
   handleClick: function(event,caller) {
     this.props.onClick(event,caller);
   },
   shouldComponentUpdate: function(nextProps, nextState) {
-    return true;
+    return nextProps != this.props;
   },
   render: function() {
     var rows = [];
@@ -137,9 +130,6 @@ var DropDownComponent = React.createClass({
 
 var ButtonComponent = React.createClass({
 
-  getInitialState: function() {
-    return {};
-  },
   handleClick: function(event) {
     this.props.onClick(event,this);
   },

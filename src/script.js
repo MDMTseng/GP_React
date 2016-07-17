@@ -81,9 +81,9 @@ class MenuComponent extends React.Component{
         //console.log(UIStore.GetAll());
         this.setState(UIStore.GetAll());
       });
-      setInterval(()=>{
+      /*setInterval(()=>{
         Dispacher.dispatch(DISP_EVE_UI.UI_Ver,UIStore.GetAll()[DISP_EVE_UI.UI_Ver]+1);
-      },100);
+      },100);*/
       //console.log(X2);
     }
     handleClick(event,caller) {
@@ -98,17 +98,8 @@ class MenuComponent extends React.Component{
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-      if(nextState.UI_Ver != this.state.UI_Ver )
-      {
-        if(this.UIUpdate)
-        {
-          this.UIUpdate=false;
-          return true;
-        }
-        return false;
-      }
-      this.UIUpdate=true;
-      return false;
+
+      return nextState!=this.state;
     }
     render() {
       return(

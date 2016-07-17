@@ -1,4 +1,4 @@
-let Promise_ =function(){
+export const PromiseX =function(){
   let promiseSet={
     promise:null,
     _isFulfilled:false,
@@ -52,7 +52,7 @@ let Promise_ =function(){
   return promiseSet;
 };
 
-
+/*
 let promiseSets=[Promise_(),Promise_(),Promise_()];
 promiseSets.map((promiseSet,idx)=>promiseSet.promise.then((d)=>{console.log(d)}).catch((e)=>{console.log(e)}));
 promiseSets.map((promiseSet,idx)=>
@@ -60,7 +60,7 @@ promiseSets.map((promiseSet,idx)=>
     id:"promiseSet_"+idx,
     data:idx,
     resDelay:Math.floor((Math.random() * 30))/10
-  }//set delay resolve 0~3000ms 
+  }//set delay resolve 0~3000ms
 );
 console.log("resDelay:"+promiseSets.map((promiseSet)=>promiseSet.resource.resDelay));
 
@@ -93,3 +93,4 @@ promiseSets.map((promiseSet)=>//attach resolve timer
   }.bind(promiseSet)
   ,promiseSet.resource.resDelay*1000);
 });
+*/
