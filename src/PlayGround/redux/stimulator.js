@@ -2,6 +2,7 @@
 
 import {PromiseX} from '../PromiseX';
 
+import jsonp from 'jsonp';
 
 
 
@@ -10,7 +11,12 @@ function AjaxGet(URL,resCB,rejCB) {
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 ) {
       if(xhttp.status == 200)
-        resCB(xhttp.responseText)
+      {
+        let data=xhttp.responseText;
+        if( typeof data === "string")
+          data= JSON.parse(data);
+        resCB(data);
+      }
       else
         rejCB({readyState:xhttp.readyState,status:xhttp.status,URL});
     }
@@ -19,6 +25,16 @@ function AjaxGet(URL,resCB,rejCB) {
   xhttp.send();
 }
 
+function jsonpGet(URL,resCB,rejCB) {
+  jsonp(URL, function (err, data) {
+    if (err)
+    {
+      rejCB(err)
+      throw err;
+    }
+    resCB(data);
+  });
+}
 
 
 
@@ -33,23 +49,14 @@ export const stimulator = (store) =>
   store.dispatch({type: "DIV",data:4})
 
   store.dispatch((dispatch)=>{
-
-      let URL="http://rest.xlearncode.academy/api/wstern/users";
+      //let URL="http://rest.xlearncode.academy/api/wstern/users";
+      let URL="http://jsfiddle.net/echo/jsonp/?xx=QQ&DD=aa";
       let promiseX=PromiseX();
-      AjaxGet(URL,promiseX.callBack.res, promiseX.callBack.rej);
-      promiseX.promise.then(
-        (data)=>{
-          if( typeof data === "string")
-            data= JSON.parse(data);
-          dispatch({type:"ajaxGET",data})
-        }
-      ).catch((data)=>{
+      jsonpGet(URL,promiseX.callBack.res, promiseX.callBack.rej);
+      promiseX.promise.then((data)=>{
+        dispatch({type:"ajaxGET",data})
+      }).catch((data)=>{
         dispatch({type:"ERROR",data})
       });
-
   })
-
-
-
-
 }
