@@ -13,5 +13,5 @@ const reducer_C = combineReducers({
 
 const middleware = applyMiddleware(thunk,midware.logger,midware.error_catch);
 
-const store = createStore(reducer_C,{},middleware)
-setTimeout(()=>stimulator(store),1);//off the init thread
+export default createStore(reducer_C,{},middleware)
+//setTimeout(()=>stimulator(store),1);//off the init thread

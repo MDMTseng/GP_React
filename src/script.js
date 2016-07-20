@@ -4,24 +4,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {DISP_EVE_UI} from './constant';
 import {ButtonComponent, DropDownComponent,DropDownWarp ,CardFrameWarp} from './component/baseComponent';
-import {Dispacher} from './framework/Dispacher';
 import PlayGround from './PlayGround/index';
-
-import {UIStore} from './framework/store/UIStore';
-
-import {EventEmitter} from 'events';
+import Store from './redux/redux';
 
 class MenuComponent extends React.Component{
 
-
     constructor(props) {
-      super(props);
 
+      Store.subscribe(()=>
+      {
+          console.log(Store.getState().calcData.ans);
+
+          this.setState(this.state);
+      });
+      Store.dispatch({type: "SET",data:10000})
+
+      super(props);
       this.state = {
         ifShowDropDown:false,
-        UI_Ver:0
+        calcData:Store.getState().calcData
       };
-
       this.dropMenu =
         [{
           id:"MAIN",
@@ -75,24 +77,16 @@ class MenuComponent extends React.Component{
 
     componentWillMount()
     {
-      UIStore.addListener(()=>{
-        //console.log(UIStore.GetAll());
-        this.setState(UIStore.GetAll());
-      });
-      /*setInterval(()=>{
-        Dispacher.dispatch(DISP_EVE_UI.UI_Ver,UIStore.GetAll()[DISP_EVE_UI.UI_Ver]+1);
-      },100);*/
-      //console.log(X2);
     }
     handleClick(event,caller) {
+          Store.dispatch({type: "DIV",data:2})
       //Dispacher.dispatch(DISP_EVE_UI.MENU_CLICKED,{time:new Date().getTime()});
     }
 
     handleDropDownClick(event,caller) {
-      Dispacher.dispatch(DISP_EVE_UI.MENU_CLICKED,!UIStore.GetAll()[DISP_EVE_UI.MENU_CLICKED]);
-      //Dispacher.dispatch(DISP_EVE_UI.MENU_CLICKED,{time:new Date().getTime()});
-      //this.setState({ifShowDropDown:!this.state.ifShowDropDown});
-      //Dispacher.dispatch(DISP_EVE_UI.MENU_CLICKED,caller);
+
+      Store.dispatch({type: "ADD",data:1})
+      this.setState({ifShowDropDown:!this.state.ifShowDropDown});
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -110,7 +104,8 @@ class MenuComponent extends React.Component{
             />
           <input
             className="blockS width8"
-            onKeyPress={this.handleKey}/>
+            onKeyPress={this.handleKey}
+            value={this.state.calcData.ans}/>
           <ButtonComponent
             addClass="width2 black"
             text="Button0"
