@@ -4,4 +4,4 @@ export {default as func} from './func';*/
 
 //import PromiseMess from './PromiseMess';
 /*import func from './func';*/
-import Redux_ from './redux/redux';
+//import Redux_ from './redux/redux';
