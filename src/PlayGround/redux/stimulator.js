@@ -3,7 +3,7 @@
 import {PromiseX} from '../PromiseX';
 
 import jsonp from 'jsonp';
-
+import querystring from 'querystring';
 
 
 function AjaxGet(URL,resCB,rejCB) {
@@ -13,8 +13,7 @@ function AjaxGet(URL,resCB,rejCB) {
       if(xhttp.status == 200)
       {
         let data=xhttp.responseText;
-        if( typeof data === "string")
-          data= JSON.parse(data);
+        data= JSON.parse(data);
         resCB(data);
       }
       else
@@ -26,7 +25,7 @@ function AjaxGet(URL,resCB,rejCB) {
 }
 
 function jsonpGet(URL,resCB,rejCB) {
-  jsonp(URL, function (err, data) {
+  jsonp(URL,  (err, data) => {
     if (err)
     {
       rejCB(err)
@@ -49,9 +48,13 @@ export const stimulator = (store) =>
   store.dispatch({type: "DIV",data:4})
 
   store.dispatch((dispatch)=>{
-      //let URL="http://rest.xlearncode.academy/api/wstern/users";
-      let URL="http://jsfiddle.net/echo/jsonp/?xx=QQ&DD=aa";
       let promiseX=PromiseX();
+      //let URL="http://rest.xlearncode.academy/api/wstern/users";
+
+      let URL="http://jsfiddle.net/echo/jsonp/?"+
+      querystring.encode({
+        XX:100
+      });
       jsonpGet(URL,promiseX.callBack.res, promiseX.callBack.rej);
       promiseX.promise.then((data)=>{
         dispatch({type:"ajaxGET",data})

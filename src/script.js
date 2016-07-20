@@ -1,7 +1,5 @@
 'use strict'
 
-let PG={};
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {DISP_EVE_UI} from './constant';

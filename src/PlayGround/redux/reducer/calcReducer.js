@@ -37,3 +37,15 @@ export const userReducer = (state = {}, action) => {
   }
   return state;
 }
+
+
+
+
+export const UICtrlReducer = (state = {}, action) => {
+
+  if (action.type === "ajaxGET") {
+    console.log("UICtrlReducer>>>",action);
+    return state;
+  }
+  return state;
+}
