@@ -2,10 +2,10 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {DISP_EVE_UI} from './constant';
 import {ButtonComponent, DropDownComponent,DropDownWarp ,CardFrameWarp} from './component/baseComponent';
 import PlayGround from './PlayGround/index';
 import Store from './redux/redux';
+import * as ACT_UI from './redux/actions/ACT_UI';
 
 class MenuComponent extends React.Component{
 
@@ -21,7 +21,6 @@ class MenuComponent extends React.Component{
 
       super(props);
       this.state = {
-        ifShowDropDown:false,
         calcData:Store.getState().calcData
       };
       this.dropMenu =
@@ -79,14 +78,15 @@ class MenuComponent extends React.Component{
     {
     }
     handleClick(event,caller) {
-          Store.dispatch({type: "DIV",data:2})
+          //Store.dispatch({type: "DIV",data:1.01})
       //Dispacher.dispatch(DISP_EVE_UI.MENU_CLICKED,{time:new Date().getTime()});
     }
 
     handleDropDownClick(event,caller) {
 
-      Store.dispatch({type: "ADD",data:1})
-      this.setState({ifShowDropDown:!this.state.ifShowDropDown});
+
+      Store.dispatch(ACT_UI.UIACT_SetMENU_EXPEND(true))
+      //this.setState({ifShowDropDown:!this.state.ifShowDropDown});
     }
 
     shouldComponentUpdate(nextProps, nextState) {

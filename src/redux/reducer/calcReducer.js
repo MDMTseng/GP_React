@@ -1,3 +1,5 @@
+import {DISP_EVE_UI} from '../constant';
+
 
 export const calcReducer = (state = {ans:0}, action) => {
 
@@ -46,6 +48,13 @@ export const UICtrlReducer = (state = {}, action) => {
   if (action.type === "ajaxGET") {
     console.log("UICtrlReducer>>>",action);
     return state;
+  }
+
+
+  if (action.type === DISP_EVE_UI.MENU_EXPEND) {
+    let obj={};
+    obj[DISP_EVE_UI.MENU_EXPEND]=action.data;
+    return Object.assign({},state,obj);
   }
   return state;
 }
