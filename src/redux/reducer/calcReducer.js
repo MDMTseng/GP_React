@@ -43,7 +43,7 @@ export const userReducer = (state = {}, action) => {
 
 
 
-export const UICtrlReducer = (state = {}, action) => {
+export const UICtrlReducer = (state = {[DISP_EVE_UI.MENU_EXPEND]:false}, action) => {
 
   if (action.type === "ajaxGET") {
     console.log("UICtrlReducer>>>",action);

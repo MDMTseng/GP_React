@@ -6,23 +6,15 @@ import {ButtonComponent, DropDownComponent,DropDownWarp ,CardFrameWarp} from './
 import PlayGround from './PlayGround/index';
 import Store from './redux/redux';
 import * as ACT_UI from './redux/actions/ACT_UI';
+import {DISP_EVE_UI} from './redux/constant';
 
 class MenuComponent extends React.Component{
 
     constructor(props) {
 
-      Store.subscribe(()=>
-      {
-          console.log(Store.getState().calcData.ans);
-
-          this.setState(this.state);
-      });
-      Store.dispatch({type: "SET",data:10000})
 
       super(props);
-      this.state = {
-        calcData:Store.getState().calcData
-      };
+      this.state =Store.getState();
       this.dropMenu =
         [{
           id:"MAIN",
@@ -76,6 +68,12 @@ class MenuComponent extends React.Component{
 
     componentWillMount()
     {
+      Store.subscribe(()=>
+      {
+          console.log(Store.getState());
+
+          this.setState(Store.getState());
+      });
     }
     handleClick(event,caller) {
           //Store.dispatch({type: "DIV",data:1.01})
@@ -85,13 +83,13 @@ class MenuComponent extends React.Component{
     handleDropDownClick(event,caller) {
 
 
-      Store.dispatch(ACT_UI.UIACT_SetMENU_EXPEND(true))
+      Store.dispatch(ACT_UI.UIACT_SetMENU_EXPEND(!Store.getState().UIData[DISP_EVE_UI.MENU_EXPEND]))
       //this.setState({ifShowDropDown:!this.state.ifShowDropDown});
     }
 
     shouldComponentUpdate(nextProps, nextState) {
 
-      return nextState!=this.state;
+      return true;
     }
     render() {
       return(
@@ -99,7 +97,7 @@ class MenuComponent extends React.Component{
           <DropDownComponent
             className="width2"
             dropMenu={this.dropMenu}
-            ifShowDropDown={this.state.ifShowDropDown}
+            ifShowDropDown={this.state.UIData[DISP_EVE_UI.MENU_EXPEND]}
             onClick={this.handleDropDownClick.bind(this)}
             />
           <input
