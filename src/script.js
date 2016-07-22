@@ -11,8 +11,6 @@ import {DISP_EVE_UI} from './redux/constant';
 class MenuComponent extends React.Component{
 
     constructor(props) {
-
-
       super(props);
       this.state =Store.getState();
       this.dropMenu =
@@ -56,10 +54,9 @@ class MenuComponent extends React.Component{
           }],
           callBack:this.handleClick
         }];
-
         this.UIUpdate=false;
-
     }
+
     handleKey(e) {
       if (e.charCode == '\r') {
         console.log('Enter... (KeyPress, use charCode)');
@@ -71,17 +68,14 @@ class MenuComponent extends React.Component{
       Store.subscribe(()=>
       {
           console.log(Store.getState());
-
           this.setState(Store.getState());
       });
     }
+
     handleClick(event,caller) {
-          //Store.dispatch({type: "DIV",data:1.01})
-      //Dispacher.dispatch(DISP_EVE_UI.MENU_CLICKED,{time:new Date().getTime()});
     }
 
     handleDropDownClick(event,caller) {
-
 
       Store.dispatch(ACT_UI.UIACT_SetMENU_EXPEND(!Store.getState().UIData[DISP_EVE_UI.MENU_EXPEND]))
       //this.setState({ifShowDropDown:!this.state.ifShowDropDown});
