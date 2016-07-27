@@ -1,8 +1,26 @@
-var debug = process.env.NODE_ENV !== "production" ;
+var path = require('path');
+var webpack = require('webpack');
+
+process.env.NODE_ENV = "production";
+
 module.exports = {
   entry: './src/script.js',
   output: { path: __dirname, filename: 'bundle.js' },
-  devtool: debug? "inline-sourcemap" : null,
+  devtool: (process.env.NODE_ENV !== "production")?
+    "inline-sourcemap" : null,
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+      }
+    })
+  ],
   module: {
     loaders: [
       {
