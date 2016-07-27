@@ -23,10 +23,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node_modules/.bin/webpack",
+    "build": "webpack",
     "build-w": "webpack --progress --colors --watch",
-    "build-opt": "node_modules/.bin/webpack --optimize-minimize",
-    "build-android": "node_modules/.bin/webpack --optimize-minimize&& sh deployToAndroidUI.sh",
+    "build-opt": "webpack --optimize-minimize",
+    "build-android": "webpack --optimize-minimize&& sh deployToAndroidUI.sh",
     "dev": "webpack-dev-server --devtool eval --progress --colors --content-base "
   },
   "repository": {

@@ -6,6 +6,7 @@ import {ButtonComponent, DropDownComponent,DropDownWarp ,CardFrameWarp} from './
 import PlayGround from './PlayGround/index';
 import Store from './redux/redux';
 
+import {showAndroidToast} from './WebView_if/Android';
 
 import { Provider, connect } from 'react-redux'
 
@@ -81,7 +82,7 @@ class MenuComponent extends React.Component{
 
     handleDropDownClick(event,caller) {
 
-      WebViewIf.showToast(">>>>");
+      showAndroidToast(">>>>");
       Store.dispatch(ACT_UI.UIACT_SetMENU_EXPEND(!Store.getState().UIData[DISP_EVE_UI.MENU_EXPEND]))
       //this.setState({ifShowDropDown:!this.state.ifShowDropDown});
     }
