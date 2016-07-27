@@ -81,6 +81,7 @@ class MenuComponent extends React.Component{
 
     handleDropDownClick(event,caller) {
 
+      WebViewIf.showToast(">>>>");
       Store.dispatch(ACT_UI.UIACT_SetMENU_EXPEND(!Store.getState().UIData[DISP_EVE_UI.MENU_EXPEND]))
       //this.setState({ifShowDropDown:!this.state.ifShowDropDown});
     }
