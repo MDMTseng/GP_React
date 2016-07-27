@@ -1,12 +1,12 @@
-if (typeof WebViewIf == 'undefined')
-{
-  var WebViewIf={
-    showToast:(text)=> console.log(text)
+
+
+
+WebViewIf.ToWeb = (obj)=>{
+  console.log("@@@@@@@@"+JSON.stringify(obj));
+};
+if(false)
+  WebViewIf={
+    FromWeb:(text)=> console.log(text),
+    __ToWeb:(text)=> console.log(text)
   }
-}
-
-console.log(WebViewIf);
-
-export function showAndroidToast(toast) {
-        WebViewIf.showToast(toast);
-    }
+export default WebViewIf;
