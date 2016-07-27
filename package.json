@@ -26,6 +26,7 @@
     "build": "node_modules/.bin/webpack",
     "build-w": "webpack --progress --colors --watch",
     "build-opt": "node_modules/.bin/webpack --optimize-minimize",
+    "build-android": "node_modules/.bin/webpack --optimize-minimize&& sh deployToAndroidUI.sh",
     "dev": "webpack-dev-server --devtool eval --progress --colors --content-base "
   },
   "repository": {
