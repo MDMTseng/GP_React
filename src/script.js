@@ -5,6 +5,10 @@ import ReactDOM from 'react-dom';
 import {ButtonComponent, DropDownComponent,DropDownWarp ,CardFrameWarp} from './component/baseComponent';
 import PlayGround from './PlayGround/index';
 import Store from './redux/redux';
+
+
+import { Provider, connect } from 'react-redux'
+
 import * as ACT_UI from './redux/actions/ACT_UI';
 import {DISP_EVE_UI} from './redux/constant';
 
@@ -136,6 +140,7 @@ class ComponentGroup extends React.Component{
 
 
 ReactDOM.render(
+<Provider store={Store}>
   <div  className="blockS HXF">
     <div className="blockS HX2 white">
       <img
@@ -150,6 +155,6 @@ ReactDOM.render(
       <ComponentGroup className="blockS HX7 widthF800"/>
     </CardFrameWarp>
   </div>
-  ,
+</Provider>,
   document.getElementById('container')
 );
