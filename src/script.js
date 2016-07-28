@@ -6,7 +6,7 @@ import {ButtonComponent, DropDownComponent,DropDownWarp ,CardFrameWarp} from './
 import PlayGround from './PlayGround/index';
 import Store from './redux/redux';
 
-import WebViewIf from './WebView_if/Android';
+//import WebViewIf from './WebView_if/Android';
 
 import { Provider, connect } from 'react-redux'
 
@@ -17,8 +17,10 @@ import {DISP_EVE_UI} from './redux/constant';
 
 
 
-WebViewIf.ToWeb = (obj)=>{
-  console.log("@@@@@@@@"+JSON.stringify(obj));
+WebViewIf.ToWeb = (json)=>{
+  let obj=JSON.parse(json);
+  Store.dispatch(ACT_UI.UIACT_SetInputBar(obj.data.SendPokemonNumber));
+  console.log("@@@@@@@@"+obj);
 };
 
 class MenuComponent extends React.Component{
@@ -86,10 +88,19 @@ class MenuComponent extends React.Component{
     }
 
     handleClick(event,caller) {
+
     }
 
     handleDropDownClick(event,caller) {
-      WebViewIf.FromWeb(">>>");
+      let retStr=
+      WebViewIf.FromWeb(
+        JSON.stringify({
+        url:"MainIF/version",
+        data:{
+          AA:"BB"}}));
+
+      console.log(retStr);
+      console.log(JSON.parse(retStr));
       Store.dispatch(ACT_UI.UIACT_SetMENU_EXPEND(!Store.getState().UIData[DISP_EVE_UI.MENU_EXPEND]))
       //this.setState({ifShowDropDown:!this.state.ifShowDropDown});
     }
@@ -110,7 +121,7 @@ class MenuComponent extends React.Component{
           <input
             className="blockS width8"
             onKeyPress={this.handleKey}
-            value={this.state.calcData.ans}/>
+            value={this.state.UIData[DISP_EVE_UI.INPUT_BAR]}/>
           <ButtonComponent
             addClass="width2 black"
             text="Button0"

@@ -43,7 +43,7 @@ export const userReducer = (state = {}, action) => {
 
 
 
-export const UICtrlReducer = (state = {[DISP_EVE_UI.MENU_EXPEND]:false}, action) => {
+export const UICtrlReducer = (state = {[DISP_EVE_UI.MENU_EXPEND]:false,[DISP_EVE_UI.INPUT_BAR]:''}, action) => {
 
   if (action.type === "ajaxGET") {
     console.log("UICtrlReducer>>>",action);
@@ -56,5 +56,14 @@ export const UICtrlReducer = (state = {[DISP_EVE_UI.MENU_EXPEND]:false}, action)
     obj[DISP_EVE_UI.MENU_EXPEND]=action.data;
     return Object.assign({},state,obj);
   }
+
+
+    if (action.type === DISP_EVE_UI.INPUT_BAR) {
+      let obj={};
+      obj[DISP_EVE_UI.INPUT_BAR]=action.data;
+      return Object.assign({},state,obj);
+    }
+
+
   return state;
 }
