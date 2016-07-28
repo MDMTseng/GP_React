@@ -19,7 +19,22 @@ import {DISP_EVE_UI} from './redux/constant';
 
 WebViewIf.ToWeb = (json)=>{
   let obj=JSON.parse(json);
-  Store.dispatch(ACT_UI.UIACT_SetInputBar(obj.data.SendPokemonNumber));
+
+  if(obj.url === "NotiMonServIF/PokemonUpdateNotify")
+  {
+
+
+    WebViewIf.FromWeb(
+      JSON.stringify({url:"NotiMonServIF/GET/NearByPokemon"})
+    );
+    return;
+  }
+
+  if(obj.url === "NotiMonServIF/GET/NearByPokemon/RSP")
+  {
+    Store.dispatch(ACT_UI.UIACT_SetInputBar(obj.data.pokemon.length));
+    return;
+  }
   console.log("@@@@@@@@"+obj);
 };
 
@@ -92,15 +107,7 @@ class MenuComponent extends React.Component{
     }
 
     handleDropDownClick(event,caller) {
-      let retStr=
-      WebViewIf.FromWeb(
-        JSON.stringify({
-        url:"MainIF/version",
-        data:{
-          AA:"BB"}}));
 
-      console.log(retStr);
-      console.log(JSON.parse(retStr));
       Store.dispatch(ACT_UI.UIACT_SetMENU_EXPEND(!Store.getState().UIData[DISP_EVE_UI.MENU_EXPEND]))
       //this.setState({ifShowDropDown:!this.state.ifShowDropDown});
     }
@@ -140,9 +147,10 @@ class ComponentGroup extends React.Component{
     onClick(event,info)
     {
     }
-    handleClick(event) {
-
+    ControlServiceOnOff(enable) {
+      WebViewIf.FromWeb(JSON.stringify({url:"MainIF/NotiMonService/enable/"+enable}));
     }
+
     componentWillMount()
     {
 
@@ -151,8 +159,8 @@ class ComponentGroup extends React.Component{
 
         return(
           <div className={this.props.className}>
-            <button className="blockS width6 HXF">B1</button>
-            <button className="blockS width6 HXF">B2</button>
+            <button className="blockS width6 HXF" onClick={()=>this.ControlServiceOnOff(true)}>ON</button>
+            <button className="blockS width6 HXF" onClick={()=>this.ControlServiceOnOff(false)}>OFF</button>
           </div>
         );
     }
