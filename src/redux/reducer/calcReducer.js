@@ -43,12 +43,13 @@ export const userReducer = (state = {}, action) => {
 
 
 
-export const UICtrlReducer = (state = {[DISP_EVE_UI.MENU_EXPEND]:false,[DISP_EVE_UI.INPUT_BAR]:''}, action) => {
+export const UICtrlReducer = (state = {[DISP_EVE_UI.MENU_EXPEND]:true,[DISP_EVE_UI.INPUT_BAR]:'',[DISP_EVE_UI.UPDATE_SYS_CHANGE]:'>>'}, action) => {
 
   if (action.type === "ajaxGET") {
     console.log("UICtrlReducer>>>",action);
     return state;
   }
+        console.log(action);
 
 
   if (action.type === DISP_EVE_UI.MENU_EXPEND) {
@@ -58,12 +59,18 @@ export const UICtrlReducer = (state = {[DISP_EVE_UI.MENU_EXPEND]:false,[DISP_EVE
   }
 
 
-    if (action.type === DISP_EVE_UI.INPUT_BAR) {
-      let obj={};
-      obj[DISP_EVE_UI.INPUT_BAR]=action.data;
-      return Object.assign({},state,obj);
-    }
+  if (action.type === DISP_EVE_UI.INPUT_BAR) {
+    let obj={};
+    obj[DISP_EVE_UI.INPUT_BAR]=action.data;
+    return Object.assign({},state,obj);
+  }
 
+
+  if (action.type === DISP_EVE_UI.UPDATE_SYS_CHANGE) {
+    let obj={};
+    obj[DISP_EVE_UI.UPDATE_SYS_CHANGE]=action.data;
+    return Object.assign({},state,obj);
+  }
 
   return state;
 }

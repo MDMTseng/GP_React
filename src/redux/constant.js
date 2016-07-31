@@ -1,5 +1,6 @@
 export let DISP_EVE_UI = {
     MENU_EXPEND: "MENU_EXPEND",
     INPUT_BAR: "INPUT_BAR",
+    UPDATE_SYS_CHANGE: "UPDATE_SYS_CHANGE",
     UI_Ver: "UI_Ver"
 }

@@ -15,6 +15,16 @@ import {DISP_EVE_UI} from './redux/constant';
 
 
 
+let WebViewIf = {};
+setTimeout(()=>{
+  WebViewIf.ToWeb(JSON.stringify({
+    url:"MainIF/SystemStatusChange",
+    data:{
+      sysUrl:".activity.serviceRunning",
+      value:"???"
+    }
+  }));
+},3000);
 
 
 WebViewIf.ToWeb = (json)=>{
@@ -32,59 +42,67 @@ WebViewIf.ToWeb = (json)=>{
 
   if(obj.url === "NotiMonServIF/GET/NearByPokemon/RSP")
   {
-    Store.dispatch(ACT_UI.UIACT_SetInputBar(obj.data.pokemon.length));
+    //Store.dispatch(ACT_UI.UIACT_SetInputBar(obj.data.pokemon.length));
     return;
   }
-  console.log("@@@@@@@@"+obj);
+
+  if(obj.url === "MainIF/SystemStatusChange")
+  {
+
+    if(obj.data.sysUrl.indexOf(".activity")==0)
+    {
+      Store.dispatch(ACT_UI.UIACT_SystemChange(obj.data));
+    }
+    switch(obj.data.sysUrl)
+    {
+      case ".activity.serviceRunning":
+        Store.dispatch(ACT_UI.UIACT_SetInputBar(obj.data.sysUrl));
+
+    }
+    console.log("@@@@@@@@"+json);
+    return;
+  }
 };
+
+
+class DropDownXComponent extends React.Component{
+
+    constructor(props) {
+      super(props);
+      this.state =Store.getState();
+    }
+
+
+    componentWillMount()
+    {
+      Store.subscribe(()=>
+      {
+          this.setState(Store.getState());
+      });
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+
+      return true;
+    }
+    render() {
+      return(
+            <CardFrameWarp boxShadow="1px 2px 20px #333" >
+              <h className="vbox textAlignLeft">fff</h>
+              <ButtonComponent
+                addClass="HXF lgreen"
+                text="..."/>
+            </CardFrameWarp>
+      );
+    }
+}
+
 
 class MenuComponent extends React.Component{
 
     constructor(props) {
       super(props);
       this.state =Store.getState();
-      this.dropMenu =
-        [{
-          id:"MAIN",
-          text:"MAIN",
-          ele:[
-          {
-            id:"new FILE",
-            text:"new file",
-          },
-          {
-            id:"save",
-            text:"save",
-          }],
-          callBack:this.handleClick
-        },
-        {
-          id:"STEP",
-          text:"STEP",
-          ele:[{
-            id:"prev",
-            text:"prev",
-          },
-          {
-            id:"next",
-            text:"next",
-          }],
-          callBack:this.handleClick
-        },
-        {
-          id:"OPS",
-          text:"OPS",
-          ele:[{
-            id:"recent files",
-            text:"recent files",
-          },
-          {
-            id:"recent prj",
-            text:"recent prj",
-          }],
-          callBack:this.handleClick
-        }];
-        this.UIUpdate=false;
     }
 
     handleKey(e) {
@@ -97,13 +115,8 @@ class MenuComponent extends React.Component{
     {
       Store.subscribe(()=>
       {
-          console.log(Store.getState());
           this.setState(Store.getState());
       });
-    }
-
-    handleClick(event,caller) {
-
     }
 
     handleDropDownClick(event,caller) {
@@ -118,15 +131,24 @@ class MenuComponent extends React.Component{
     }
     render() {
       return(
-        <div className="blockS showOverFlow">
-          <DropDownComponent
-            className="width2"
-            dropMenu={this.dropMenu}
+        <div className="showOverFlow">
+
+          <DropDownWarp
+            containerClass={"width2"}
             ifShowDropDown={this.state.UIData[DISP_EVE_UI.MENU_EXPEND]}
-            onClick={this.handleDropDownClick.bind(this)}
-            />
+            dropdownClass="aniFlipin"
+            dropdownStyle={{width:"500px"}}>
+            <ButtonComponent
+              addClass="lgreen"
+              text="..."
+              onClick={this.handleDropDownClick}/>
+            <DropDownXComponent/>
+          </DropDownWarp>
+
+
+
           <input
-            className="blockS width8"
+            className="width8"
             onKeyPress={this.handleKey}
             value={this.state.UIData[DISP_EVE_UI.INPUT_BAR]}/>
           <ButtonComponent
@@ -142,7 +164,7 @@ class ComponentGroup extends React.Component{
 
     constructor(props) {
         super(props);
-        this.state ={};
+        this.state =Store.getState();
     }
     onClick(event,info)
     {
@@ -159,28 +181,55 @@ class ComponentGroup extends React.Component{
 
         return(
           <div className={this.props.className}>
-            <button className="blockS width6 HXF" onClick={()=>this.ControlServiceOnOff(true)}>ON</button>
-            <button className="blockS width6 HXF" onClick={()=>this.ControlServiceOnOff(false)}>OFF</button>
+            <button className="width6 HXF" onClick={()=>this.ControlServiceOnOff(true)}>ON</button>
+            <button className="width6 HXF" onClick={()=>this.ControlServiceOnOff(false)}>OFF</button>
           </div>
         );
     }
 }
 
 
-ReactDOM.render(
+class PreLogComponent extends React.Component{
+
+  constructor(props) {
+      super(props);
+      this.state =Store.getState();
+  }
+  componentWillMount()
+  {
+    Store.subscribe(()=>
+    {
+        this.setState(Store.getState());
+    });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
+  }
+  render() {
+    let className=("textarea "+ this.props.addClass);
+    return <pre className={className} >
+      {JSON.stringify(this.state.UIData[DISP_EVE_UI.UPDATE_SYS_CHANGE].value)}
+    </pre>;
+  }
+}
+
+ReactDOM.render( 
 <Provider store={Store}>
   <div  className="blockS HXF">
-    <div className="blockS HX2 white">
+    <div className="HX2 white">
       <img
-        className="blockS width8 HXF widthF800"
+        className="width8 HXF widthF800"
         src="resource/image/BLOG_T.svg">
       </img>
     </div>
     <CardFrameWarp>
       <MenuComponent/>
+      <ComponentGroup className="widthF800"/>
     </CardFrameWarp>
+
     <CardFrameWarp>
-      <ComponentGroup className="blockS HX7 widthF800"/>
+      <PreLogComponent addClass="HX7"/>
     </CardFrameWarp>
   </div>
 </Provider>,

@@ -88,7 +88,7 @@ html, body {
 
 
 
-.blockS {
+.blockS * {
 	float: left;
 	border-style: none;
 	transition: background ease-in 0.2s, color ease-in 0.2s;
@@ -103,13 +103,13 @@ html, body {
 }
 
 
-.blockS.textAlignLeft {
+.blockS .textAlignLeft {
   text-align: left;
 }
 
 
 
-.blockS.floatRight {
+.blockS .floatRight {
   float: right;
 }
 
@@ -118,94 +118,94 @@ html, body {
 	font-size: 0.3cm;
 }
 
-.blockS.noAnim {
+.blockS .noAnim {
 	transition: none;
 }
 
 
-.blockS.showOverFlow,.blockS.dropDown{
+.blockS .showOverFlow,.blockS .dropDown{
   overflow: visible;
 }
-.blockS.dropdownBox,.blockS.dropDownContent{
+.blockS .dropdownBox,.blockS .dropDownContent{
   position: relative;
 }
-.blockS.hide{
+.blockS .hide{
   display: none;
 }
 
-.blockS.HCenter{
+.blockS .HCenter{
 margin:auto; float: none;
 }
 
 
-.blockS.overlayCon {
+.blockS .overlayCon {
 	position: relative;
 	overflow:hidden;
 }
-.blockS.overlay {
+.blockS .overlay {
 	position: absolute;
 	background: none;
 }
-.blockS.overlaybtm {
+.blockS .overlaybtm {
 
 	position: absolute;
 	background: none;
 	bottom:0;
 }
 
-.blockS.overlayright {
+.blockS .overlayright {
 
 	position: absolute;
 	background: none;
 	right:0;
 }
 
-.blockS.HXA {
+.blockS .HXA {
 
   height: auto;
 }
-.blockS.HX0 {
+.blockS .HX0 {
 
 	height: 0px;
 }
-.blockS.HX0_1 {
+.blockS .HX0_1 {
 
 	height: 5px;
 }
-.blockS.HX0_5 {
+.blockS .HX0_5 {
 
 	height: 25px;
 }
-.blockS.HX1_5 {
+.blockS .HX1_5 {
 
 	height: 75px;
 }
-.blockS.HX2 {
+.blockS .HX2 {
 
 	height: 100px;
 }
-.blockS.HX3 {
+.blockS .HX3 {
 
 	height: 150px;
 }
 
-.blockS.HX4 {
+.blockS .HX4 {
 
 	height:200px;
 }
-.blockS.HX5 {
+.blockS .HX5 {
 
 	height:250px;
 }
-.blockS.HX6 {
+.blockS .HX6 {
 
 	height:300px;
 }
-.blockS.HX7 {
+.blockS .HX7 {
 
 	height:350px;
 }
-.blockS.HXF{
+.blockS .HXF{
 
 	height:100%;
 }
@@ -213,7 +213,7 @@ margin:auto; float: none;
 
 	height: 10px;
 }
-.blockS.input,input.blockS {
+.blockS .input,.blockS input {
 	box-shadow: inset 0 -5px 0 black, inset 2px 0px 0 black;
 
 	padding-left: 5px;
@@ -224,7 +224,7 @@ margin:auto; float: none;
 	appearance: none;
 }
 
-.blockS.padding
+.blockS .padding
 {
     padding:0.3em;
 }
@@ -353,7 +353,7 @@ margin:auto; float: none;
 		display: none;
 	}
 }
-.blockS.button, button.blockS {
+.blockS .button, .blockS button {
     outline:none;
 	border-bottom : 5px solid #111;
 	border-right : 3px solid #111;
@@ -363,7 +363,7 @@ margin:auto; float: none;
 
 
 
-.blockS.button:active, button.blockS:active {
+.blockS .button:active, .blockS button:active {
 	border-top: 5px solid #111;
 	border-bottom : 0;
 	border-right :0;
@@ -373,60 +373,60 @@ margin:auto; float: none;
 }
 
 
-.blockS:disabled {
+.blockS *:disabled {
 	background: #888;
 }
 
-.blockS.lgray {
+.blockS .lgray {
 
 	background: #999;
 }
-.blockS.lred {
+.blockS .lred {
 
 	background: #ECC;
 }
-.blockS.lgreen {
+.blockS .lgreen {
 
 	background: #CEC;
 }
-.blockS.lblue{
+.blockS .lblue{
 
 	background: #CCE;
 }
-.blockS.deepred {
+.blockS .deepred {
 
 	background: #F00;
 }
 
-.blockS.deepgreen{
+.blockS .deepgreen{
 
 	background: #0F0;
 }
-.blockS.red {
+.blockS .red {
 
 	background: #422;
 }
 
-.blockS.green {
+.blockS .green {
 	background: #242;
 }
 
-.blockS.blue {
+.blockS .blue {
 
 	background: #224;
 }
 
-.blockS.black {
+.blockS .black {
 
   background: #000;
 }
-.blockS.white {
+.blockS .white {
   background: #FFF;
 }
-.blockS.blackText {
+.blockS .blackText {
 	color: #444;
 }
-.blockS.nocolor {
+.blockS .nocolor {
 
 	background: none;
 }

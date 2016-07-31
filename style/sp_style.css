@@ -1,54 +1,61 @@
 
-.sp_Style .blockS.shadow1 {
+.sp_Style .blockS *.shadow1 {
   box-shadow:0 0px 3px rgba(0,0,0,0.5);
 }
 
-.sp_Style .blockS.dropDown{
+.sp_Style .blockS *.dropDown{
   perspective: 1300px;
-} 
+}
 
-.sp_Style .blockS.aniFlipin.hide{
+.sp_Style .blockS *.aniFlipin.hide{
   display:block;
   transform: rotateY( 120deg );
-} 
+}
 
 
 
-.sp_Style .blockS.aniFlipin{
+.sp_Style .blockS *.aniFlipin{
   transition:transform 0.7s ;
-  transform: rotateY( 13deg );
+  transform: rotateY(0deg );
   transform-origin: -40% 50% 0px;
-} 
+}
 
-.sp_Style .blockS.button.dropDownBtn,.sp_Style button.blockS.dropDownBtn{
+.sp_Style .blockS *.button.dropDownBtn,.sp_Style button.blockS *.dropDownBtn{
   color: #333;
   background:#FFF;
-} 
+}
 
-.sp_Style .blockS.button.dropDownBtn:hover,button.blockS.dropDownBtn:hover {
+.sp_Style .blockS *.button.dropDownBtn:hover,button.blockS *.dropDownBtn:hover {
   padding:10px;
   background: #333;
   color:#FFF;
-} 
+}
 
-.sp_Style button.blockS.dropDownBtn>*,.button.blockS.dropDownBtn>*  {
+.sp_Style button.blockS *.dropDownBtn>*,.button.blockS *.dropDownBtn>*  {
   transition: transform 0.1s;
   transform: translate(10px,0px);
-} 
-.sp_Style button.blockS.dropDownBtn:hover>*,.button.blockS.dropDownBtn:hover>* { 
+}
+.sp_Style button.blockS *.dropDownBtn:hover>*,.button.blockS *.dropDownBtn:hover>* {
   transform: translate(20px,0px);
-} 
+}
 
 
-.sp_Style .blockS.rotateContent>* {
+.sp_Style .blockS *.rotateContent>* {
   transform: rotate(90.0deg) translateY(5px);
   transform-origin: 50% 50% 0;
 }
-.sp_Style input[type="radio"]:checked+label.blockS.radioX{ background:#224422 } 
+.sp_Style input[type="radio"]:checked+label.blockS *.radioX{ background:#224422 }
 
 
-.sp_Style input[type="radio"]:checked+label.blockS.radioX
-{ background:#224422 } 
-.sp_Style input[type="radio"]:checked+label.blockS.radioX *
-{ background:#FFF } 
-.sp_Style .blockS.radioX *:hover,.sp_Style .blockS.radioX:hover{ background:#AAA } 
+.sp_Style input[type="radio"]:checked+label.blockS *.radioX
+{ background:#224422 }
+.sp_Style input[type="radio"]:checked+label.blockS *.radioX *
+{ background:#FFF }
+.sp_Style .blockS *.radioX *:hover,.sp_Style .blockS *.radioX:hover{ background:#AAA }
+
+
+
+
+.sp_Style .blockS *.dropdownStyle{
+  width:800px;
+}

@@ -11,12 +11,12 @@ var CardFrameWarp = React.createClass({
   },
   render: function() {
     return(
-      <div className={"blockS HXA padding showOverFlow"+ this.props.addClass}>
+      <div className={"HXA padding showOverFlow "+ this.props.addClass}>
         <div
-          className="blockS HXA white padding showOverFlow"
+          className="HXA white padding showOverFlow"
           style={{boxShadow:this.props.boxShadow}} >
 
-          <div className="blockS HXA showOverFlow">
+          <div className="HXA showOverFlow">
             {this.props.children}
           </div>
         </div>
@@ -28,13 +28,11 @@ var CardFrameWarp = React.createClass({
 var DropDownWarp = React.createClass({
 
   render: function() {
-    var dropDownClassName="blockS HXA dropDownContent "+(this.props.ifShowDropDown?"":"hide ")+this.props.dropdownClass;
+    var dropDownClassName="HXA dropDownContent "+(this.props.ifShowDropDown?"":"hide ")+this.props.dropdownClass;
     return(
-      <div className={"blockS dropDown "+ this.props.containerClass} >
+      <div className={"dropDown "+ this.props.containerClass} >
         {this.props.children[0]}
-
         <div
-
           className={dropDownClassName}
           style={this.props.dropdownStyle}>
           {this.props.children.slice(1,this.props.children.length)}
@@ -73,7 +71,7 @@ var DropDownComponent = React.createClass({
       }
 
 
-      var classX="blockS black HX"+menu_sec.ele.length+" ";
+      var classX="black HX"+menu_sec.ele.length+" ";
 
 
       rows.push(
@@ -99,7 +97,7 @@ var DropDownComponent = React.createClass({
       rows.push(
         <div
           key={menu_sec.id+"_"}
-          className="blockS black HX0_1 ">
+          className="black HX0_1 ">
         </div>
       );
 
@@ -134,7 +132,7 @@ var ButtonComponent = React.createClass({
     this.props.onClick(event,this);
   },
   render: function() {
-    var className=("blockS lgray vbox "+ this.props.addClass);
+    var className=("lgray vbox "+ this.props.addClass);
     return <button
       onClick={this.handleClick}
       className={className}>

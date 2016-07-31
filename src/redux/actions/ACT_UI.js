@@ -13,3 +13,14 @@ export function UIACT_SetInputBar(text)
     type: DISP_EVE_UI.INPUT_BAR,data:text
   }
 }
+
+export function UIACT_SystemChange(data)
+{
+  if(data.sysUrl === undefined||data.value === undefined)
+  {
+    throw new Error('UIACT_SystemChange data format error');
+  }
+  return {
+    type: DISP_EVE_UI.UPDATE_SYS_CHANGE,data:data
+  }
+}
