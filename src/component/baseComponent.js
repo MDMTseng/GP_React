@@ -1,5 +1,6 @@
 import React from 'react';
-var CardFrameWarp = React.createClass({
+
+export let CardFrameWarp = React.createClass({
 
 
   getDefaultProps: function() {
@@ -10,22 +11,22 @@ var CardFrameWarp = React.createClass({
 
   },
   render: function() {
-    return(
-      <div className={"HXA padding showOverFlow "+ this.props.addClass}>
-        <div
-          className="HXA white padding showOverFlow"
-          style={{boxShadow:this.props.boxShadow}} >
 
-          <div className="HXA showOverFlow">
+    let HX_Type=(this.props.fixedFrame)?"HXF":"HXA";
+    let topHX_Type = this.props.addClass + ((this.props.fixedFrame)?"":" HXA");
+    return(
+      <div className={"padding showOverFlow "+ topHX_Type}>
+        <div
+          className={HX_Type+" white padding showOverFlow"}
+          style={{boxShadow:this.props.boxShadow}} >
             {this.props.children}
-          </div>
         </div>
       </div>
     );
   }
 });
 
-var DropDownWarp = React.createClass({
+export let DropDownWarp = React.createClass({
 
   render: function() {
     var dropDownClassName="HXA dropDownContent "+(this.props.ifShowDropDown?"":"hide ")+this.props.dropdownClass;
@@ -43,7 +44,7 @@ var DropDownWarp = React.createClass({
   }
 });
 
-var DropDownComponent = React.createClass({
+export let DropDown = React.createClass({
 
   handleClick: function(event,caller) {
     this.props.onClick(event,caller);
@@ -61,7 +62,7 @@ var DropDownComponent = React.createClass({
 
       for( var ele of menu_sec.ele){
         group.push(
-          <ButtonComponent
+          <Button
             addClass=" textAlignLeft dropDownBtn"
             key={ele.id}
             id={ele.id}
@@ -112,7 +113,7 @@ var DropDownComponent = React.createClass({
         ifShowDropDown={this.props.ifShowDropDown}
         dropdownClass="aniFlipin"
         dropdownStyle={divStyle}>
-        <ButtonComponent
+        <Button
           addClass="HXF lgreen"
           text="..."
           onClick={this.handleClick}/>
@@ -126,7 +127,7 @@ var DropDownComponent = React.createClass({
 
 
 
-var ButtonComponent = React.createClass({
+export let Button = React.createClass({
 
   handleClick: function(event) {
     this.props.onClick(event,this);
@@ -143,4 +144,59 @@ var ButtonComponent = React.createClass({
   }
 });
 
-export { ButtonComponent, DropDownComponent,DropDownWarp ,CardFrameWarp}
+
+
+
+export let ImgSprite = React.createClass({
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return(
+    (nextProps.position != this.props.position) ||
+    (nextProps.id != this.props.id)||
+    (nextProps.style != this.props.style)||
+    (nextProps.offset != this.props.offset)
+    );
+  },
+  render: function() {
+    let spriteInfo=this.props.spriteInfo;
+
+    let spriteScale=(this.props.spriteScale!=undefined)?this.props.spriteScale:1;
+
+    let offset=(this.props.offset!=undefined)?this.props.offset:
+    {
+      x:0,
+      y:0,
+    };
+
+    var xId=-this.props.id%spriteInfo.xLimit;
+    var yId=-Math.floor(this.props.id/spriteInfo.xLimit);
+
+
+    let style=Object.assign({},this.props.style,
+      {
+          width: spriteInfo.sWidth*spriteScale+"px",
+          height:spriteInfo.sHeight*spriteScale+"px",
+          background: 'url(' + spriteInfo.url + ') '+(offset.x+spriteInfo.sWidth*xId)*spriteScale+"px "+(offset.y+spriteInfo.sHeight*yId)*spriteScale+"px",
+          backgroundSize: spriteInfo.width*spriteScale+"px "+spriteInfo.height*spriteScale+"px"
+      }
+    );
+
+    return <div style={style} className={this.props.className}></div>
+  }
+});
+
+export let SwitchButton = React.createClass({
+
+  handleClick: function(event) {
+    this.props.onClick(event,this);
+  },
+  render: function() {
+    var className=("lgray vbox "+ this.props.addClass);
+    return <button
+      onClick={this.handleClick}
+      className={className}>
+      <p>
+        {this.props.text}
+      </p>
+    </button>;
+  }
+});

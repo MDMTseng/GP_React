@@ -18,22 +18,6 @@ html, body {
 }
 
 
-.body::-webkit-scrollbar {
-	width: 5px;
-	height: 0;
-	background-color: #cccccc;
-}
-.body::-webkit-scrollbar-thumb {
-	background-color: #555;
-}
-.body::-webkit-scrollbar-thumb:hover {
-	border: 1px solid #333333;
-}
-.body::-webkit-scrollbar-thumb:active {
-	border: 1px solid #333333;
-}
-
-
 .vbox:before {/*invisible trick*/
 	content: '';
 	display: inline-block;
@@ -58,7 +42,14 @@ html, body {
 	transform: translateY(-50%);
 }
 
-.veleXY .centerdivabs {
+
+.veleX {
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.veleXY {
 	position: relative;
 	top: 50%;
 	left: 50%;
@@ -100,6 +91,12 @@ html, body {
 	box-sizing: border-box;
 	color:#FFF;
 	overflow:hidden;
+}
+
+
+.blockS .scroll {
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
 }
 
 
@@ -163,6 +160,10 @@ margin:auto; float: none;
 .blockS .HXA {
 
   height: auto;
+}
+.blockS .WXA {
+
+  width: auto;
 }
 .blockS .HX0 {
 

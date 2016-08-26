@@ -1,4 +1,4 @@
-export const PromiseX =function(){
+export default function(){
   let promiseSet={
     promise:null,
     _isFulfilled:false,

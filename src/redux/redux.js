@@ -1,17 +1,29 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
-import { calcReducer, userReducer, UICtrlReducer } from "./reducer/calcReducer";
+import * as TestReducer from "./reducer/calcReducer";
+import {UICtrlReducer} from "./reducer/UICtrlReducer";
+import {SysStateReducer} from "./reducer/SysStateReducer";
+import {UserReducer} from "./reducer/UserReducer";
+import {PokemonRadarReducer} from "./reducer/PokemonRadarReducer";
+import {PokemonSelectReducer} from "./reducer/PokemonSelectReducer";
 import { stimulator } from "./stimulator";
 import * as midware from "./middleware/middleware";
 import thunk from 'redux-thunk';
 
-const reducer_C = combineReducers({
-  calcData:calcReducer,
-  userData:userReducer,
-  UIData:UICtrlReducer,
-})
 
 
-const middleware = applyMiddleware(thunk,midware.logger,midware.error_catch);
+export function ReducStoreSetUp(presistStore){
 
-export default createStore(reducer_C,{},middleware)
-//setTimeout(()=>stimulator(store),1);//off the init thread
+  const reducer_C = combineReducers({
+    sysData:SysStateReducer,
+    UIData:UICtrlReducer,
+    AppData:combineReducers({
+      PokemonRadarData:PokemonRadarReducer,
+      PokemonSelectData:PokemonSelectReducer,
+      UserData:UserReducer
+    })
+  })
+
+  const middleware = applyMiddleware(thunk,midware.logger,midware.error_catch);
+
+   return createStore(reducer_C,presistStore,middleware);
+}
