@@ -32,9 +32,10 @@
     "build": "webpack",
     "build-w": "webpack --progress --colors --watch",
     "build-opt": "set NODE_ENV=production&&webpack --optimize-minimize",
-    "build-w-android": "set NOTIMON_PRJ=deploy&&webpack --progress --colors --watch",
+    "build-dbg-android": "NOTIMON_PRJ=deploy webpack --progress --colors --watch",
     "build-opt-android": "NODE_ENV=production NOTIMON_PRJ=deploy webpack --progress --colors --watch",
-    "build-win-android": "set NODE_ENV=production&&set NOTIMON_PRJ=deploy&&webpack --progress --colors --watch",
+    "build-dbg-android-win": "set NOTIMON_PRJ=deploy&&webpack --progress --colors --watch",
+    "build-opt-android-win": "set NODE_ENV=production&&set NOTIMON_PRJ=deploy&&webpack --progress --colors --watch",
     "dev": "webpack-dev-server --devtool eval --progress --colors --content-base "
   },
   "repository": {

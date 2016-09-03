@@ -117,6 +117,10 @@ class SideControlComponent extends React.Component{
 
               </button>
 
+              <button className="sidebar" onClick={this.handlePageTabClick.bind(UIAct.UI_BodyPage.LOG)}>
+                <p className="vbox width10 sFontSize">LOG</p>
+
+              </button>
             </BASE_COM.CardFrameWarp>
       );
     }
@@ -407,10 +411,19 @@ class PreLogComponent extends React.Component{
     return this.state.sysData!=nextState.sysData;
   }
   render() {
-    console.log(JSON.stringify(Store.getState()));
+    //console.log(JSON.stringify(Store.getState()));
     return(
     <BASE_COM.CardFrameWarp addClass={this.props.addClass} fixedFrame={true}>
-      <pre className="HXF textarea" >
+
+      <button className="lgreen height2" onClick={
+        ()=>{
+          console.log("dsdfsdfsdfop");
+            WebViewIfAPI.SetOrientationEnable(true);
+
+        }
+
+        }>ddd</button>
+      <pre className="height10 textarea" >
         {JSON.stringify(this.state.sysData.system_log,null,4)}
       </pre>
     </BASE_COM.CardFrameWarp>);

@@ -5,7 +5,7 @@ try{
   WebViewIfx.SystemType="Android";
 }
 catch(e)
-{ 
+{
   WebViewIfx={
     SystemType:"MOCK",
     FromWeb:(str)=>{console.log("MOCK_WebViewIf_FromWeb"+str);}};
@@ -93,7 +93,7 @@ export let WebViewIfAPI={
   })),
 
   SetOrientationEnable:(isEnable)=>WebViewIfx.FromWeb(JSON.stringify({
-    url:"NotiMonServIF/Orientation/enable/"+((isEnable)!=="enable")
+    url:"NotiMonServIF/Orientation/"+((isEnable)?"enable":"disable")
   })),
 
   SetGPSEnable:(isEnable)=>WebViewIfx.FromWeb(JSON.stringify({

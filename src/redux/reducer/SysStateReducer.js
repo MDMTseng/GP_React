@@ -16,7 +16,7 @@ function Default_SysState()
 
 
 export var SysStateReducer = (state = Default_SysState(), action) => {
-
+  state=Object.assign({},state,{system_log:action});
   if (action.type === SYS_ACT_Type.SERVICE_STATUS_UPDATE) {
     let obj={};
     switch(action.data.sysUrl)

@@ -13,6 +13,7 @@ let StoreInitDataPromiseX=PromiseX();
 //setTimeout(StoreInitDataPromiseX.callBack.rej,2000);
 
 let ToWeb = (json)=>{
+  console.log(json);
   let obj=JSON.parse(json);
 
   if(obj.url === "NotiMonServIF/PokemonUpdateNotify")
