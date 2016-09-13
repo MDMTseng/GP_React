@@ -7,7 +7,7 @@ function Default_UICtrlReducer()
 {
   return {
     MENU_EXPEND:false,
-    bodyPage:UI_BodyPage.RadarView,
+    bodyPage:UI_BodyPage.LOG,
     showLogoFrame:true,
   }
 }

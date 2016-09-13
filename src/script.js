@@ -269,125 +269,6 @@ class PokemonSelectComponent extends React.Component{
 }
 
 
-class PokemonRadarComponent extends React.Component{
-
-  constructor(props) {
-      super(props);
-      this.state =Store.getState();
-
-
-      this.SpriteInfo={
-        width:35,
-        height:5285,
-        url:"resource/image/PokemonIcons3.png",
-        xLimit:1,
-        sWidth:35,
-        sHeight:35
-      }
-
-  }
-  UpdateResize()
-  {
-    let thisDOM=ReactDOM.findDOMNode(this);
-    let RadarSize = thisDOM.offsetWidth;
-    let height = thisDOM.offsetHeight;
-
-    if(RadarSize>height)
-      RadarSize=height;
-
-    this.setState({RadarSize:RadarSize*0.95});
-    /*console.log(width);
-    console.log(HHH);*/
-  }
-  componentDidMount(){this.UpdateResize();}
-
-  componentWillMount()
-  {
-    this.unSubscribe=Store.subscribe(()=>
-    {
-        this.setState(Store.getState());
-    });
-    this.UpdateResize_CB=this.UpdateResize.bind(this);
-    window.addEventListener('resize', this.UpdateResize_CB,true);
-  }
-  componentWillUnmount()
-  {
-    window.removeEventListener('resize', this.UpdateResize_CB,true);
-    this.unSubscribe();
-    this.unSubscribe=null;
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.state.AppData.PokemonRadarData!=nextState.AppData.PokemonRadarData||
-    this.state.AppData.UserData!=nextState.AppData.UserData||
-    this.state.RadarSize!=nextState.RadarSize;
-  }
-
-
-  render() {
-    let PokemonData = this.state.AppData.PokemonRadarData.Status.data;
-    let UserData =this.state.AppData.UserData;
-    //console.log(this.state.AppData.PokemonData.Status);
-
-    /*let imageStyle={
-      transform: "translate(-50%,-50%) rotate("+userOrientation+"deg)"
-    };*/
-    let orientation = -UserData.orientation.x;
-    let cos_f = Math.cos(orientation);
-    let sin_f = Math.sin(orientation);
-    let distLimit=300;
-    let displayRange=this.state.RadarSize/2*0.9;
-    let PokemonDataX = PokemonData
-    .map(data=>{
-      let xy= GeoCompute.GeoDiffToXY_approx(UserData.GPS.latitude,UserData.GPS.longitude,data.latitude,data.longitude);
-      return Object.assign({},data,xy)
-    })
-    .map(data=>{
-      let ox=data.x;
-      let oy=data.y;
-      let dist=Math.sqrt(ox*ox+oy*oy);
-      if(dist>distLimit)
-      {
-        oy=oy/dist;
-        ox=ox/dist;
-        data.imgFilter="grayscale(0%) brightness(0)";
-      }
-      else {
-        let tmp=dist/distLimit;
-
-        oy=oy/distLimit;
-        ox=ox/distLimit;
-        data.imgFilter=null;//"grayscale(0%) brightness("+(1-Math.pow(tmp,7))+")";
-      }
-      data.x=(ox*cos_f - oy*sin_f)*displayRange;
-      data.y=(oy*cos_f + ox*sin_f)*displayRange;
-      return data;
-    });
-    return(
-      <div  className={"overlayCon "+this.props.addClass} >
-        <div className="veleXY overlayCon radarScanPanel"
-        style={{
-          width: this.state.RadarSize+"px",
-          height: this.state.RadarSize+"px"
-        }}>
-          <div className="HXF WXF veleXY radarScanWave"/>
-
-          <img className="WXA HXA overlay veleXY" src={"resource/image/Pokemon_1gen_gif/050.gif"}></img>
-          {PokemonDataX.map((data)=>
-            <div key={data.id}  className="HXA WXA veleXY overlay showOverFlow pokemonSpriteCon" >
-              <img className="HXA WXA " src={"resource/image/Pokemon_1gen_gif/"+MISC_Util.Num2Str_padding(3,data.pokemonId)+".gif"}
-              style={{
-                transform: "translate("+data.x+"px,"+data.y+"px)",
-                WebkitFilter: data.imgFilter
-              }}></img>
-            </div>
-          )}
-        </div>
-      </div>);
-
-  }
-}
-
 class PreLogComponent extends React.Component{
 
   constructor(props) {
@@ -512,7 +393,7 @@ class APPMaster extends React.Component{
       <MenuComponent className="height2"/>
 
       <$CSSTG transitionName = "fadeIn" className="width0">
-        {(this.state.UIData.MENU_EXPEND)?<SideControlComponent/>:[]}
+        {(this.state.UIData.MENU_EXPEND)?<SideControlComponent/>:null}
       </$CSSTG>
     </div>);
   }
