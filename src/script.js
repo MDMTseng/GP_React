@@ -33,7 +33,6 @@ import * as BASE_COM from './component/baseComponent';
 import * as UIAct from './redux/actions/UIAct';
 import * as APPAct from './redux/actions/AppAct';
 import * as SysAct from './redux/actions/SysAct';
-import * as GeoCompute from './UTIL/GeoCompute';
 
 
 
@@ -196,76 +195,6 @@ class MenuComponent extends React.Component{
         </BASE_COM.CardFrameWarp>
       );
     }
-}
-
-
-
-
-
-class PokemonSelectComponent extends React.Component{
-
-  constructor(props) {
-      super(props);
-      this.state =Store.getState();
-
-
-      this.SpriteInfo={
-        width:35,
-        height:5285,
-        url:"resource/image/PokemonIcons3.png",
-        xLimit:1,
-        sWidth:35,
-        sHeight:35
-      }
-  }
-  componentWillMount()
-  {
-    this.unSubscribe=Store.subscribe(()=>
-    {
-        this.setState(Store.getState());
-    });
-  }
-  componentWillUnmount()
-  {
-    this.unSubscribe();
-    this.unSubscribe=null;
-  }
-
-  PokemononClick(id)
-  {
-          Store.dispatch(APPAct.Act_ToggleSelectPokemon(id))
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.state.AppData.PokemonSelectData!=nextState.AppData.PokemonSelectData;
-  }
-
-
-
-  render() {
-    let selectList = this.state.AppData.PokemonSelectData.pokemonSelectList;
-
-    let unSelectIconFilter="grayscale(95%)  brightness(0.5)";
-    let selectIconFilter="";
-    return(
-    <BASE_COM.CardFrameWarp addClass={this.props.addClass} fixedFrame={true}>
-      <div  className="HXF scroll" >
-      {
-        selectList.map((data)=>
-        <div  className="HX1 width3 showOverFlow pokemonSpriteCon" key={data.id} onClick={()=>this.PokemononClick(data.id)}>
-          <img className="veleXY WXA HXA" src={"resource/image/Pokemon_1gen_png/"+MISC_Util.Num2Str_padding(3,data.id)+".png"}
-          style={{
-            WebkitFilter: data.rating>0?selectIconFilter:unSelectIconFilter,
-            transform: "translate(-50%,-50%) scale(0.7)"
-          }}>
-          </img>
-        </div>
-        )
-      }
-      </div>
-    </BASE_COM.CardFrameWarp>);
-
-  }
 }
 
 
