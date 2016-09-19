@@ -4,6 +4,7 @@ import styles from '../style/basis.css'
 import sp_style from '../style/sp_style.css'
 
 
+import * as XXXXXX from './PlayGround/index';
 import {ReducStoreSetUp} from './redux/redux';
 import {GetCommIF,WebViewIfAPI} from './WebView_if/Android';
 import * as inputFlow from './WebView_if/input_flow';
@@ -35,16 +36,12 @@ import * as APPAct from './redux/actions/AppAct';
 import * as SysAct from './redux/actions/SysAct';
 
 
-
-
 class SideControlComponent extends React.Component{
 
     constructor(props) {
       super(props);
       this.state =Store.getState();
     }
-
-
     componentWillMount()
     {
       this.unSubscribe=Store.subscribe(()=>
@@ -77,11 +74,8 @@ class SideControlComponent extends React.Component{
         WebViewIfAPI.SetGPSEnable(this.state.sysData.GPSStatus);
     }
 
-
     handlePageTabClick(){
-
       Store.dispatch(UIAct.UIACT_SwitchBodyPage(this));
-
       Store.dispatch(UIAct.UIACT_SetMENU_EXPEND(!Store.getState().UIData.MENU_EXPEND))
     }
     render() {
@@ -125,7 +119,6 @@ class SideControlComponent extends React.Component{
     }
 }
 
-
 class MenuComponent extends React.Component{
 
     constructor(props) {
@@ -137,7 +130,7 @@ class MenuComponent extends React.Component{
     {
       this.unSubscribe=Store.subscribe(()=>
       {
-          this.setState(Store.getState());
+          this.setState(Store.getState().UIData);
       });
     }
     componentWillUnmount()
@@ -153,7 +146,7 @@ class MenuComponent extends React.Component{
 
     shouldComponentUpdate(nextProps, nextState) {
 
-      return this.state.UIData!=nextState.UIData;
+      return this.state!=nextState;
     }
 
 
@@ -162,7 +155,7 @@ class MenuComponent extends React.Component{
       Store.dispatch(UIAct.UIACT_SwitchBodyPage(this));
     }
     render() {
-      let currentPage=this.state.UIData.bodyPage;
+      let currentPage=this.state.bodyPage;
 
       let sysAPPBtnShiftStyle=
       {
@@ -171,22 +164,8 @@ class MenuComponent extends React.Component{
 
       return(
         <BASE_COM.CardFrameWarp addClass={this.props.className} fixedFrame={true}>
-          <div className=" HXF width8">
-            <div className=" HXF showOverFlow sysAPPBtn"
-              style={sysAPPBtnShiftStyle}>
-              <div className="HXF lblue" onClick={this.handlePageTabClick.bind(UIAct.UI_BodyPage.PokeSelectView)}>
-                <div className=" WXA HX0_5 veleXY" >
-                  <img className="HXF WXA" src="resource/image/UI/select.svg"/>
-                  <p className="WXA robotoFont">&nbsp;Select</p>
-                </div>
-              </div>
-              <div className="HXF lred" onClick={this.handlePageTabClick.bind(UIAct.UI_BodyPage.RadarView)}>
-                <div className=" WXA HX0_5 veleXY" >
-                  <img className="HXF WXA" src="resource/image/UI/radar.svg"/>
-                  <p className="WXA robotoFont">&nbsp;Radar</p>
-                </div>
-              </div>
-            </div>
+          <div className=" HXF width8 robotoFont lred vbox">
+            rrrr
           </div>
           <BASE_COM.Button
             addClass="lgreen HXF width4"
@@ -196,7 +175,6 @@ class MenuComponent extends React.Component{
       );
     }
 }
-
 
 class PreLogComponent extends React.Component{
 
@@ -227,12 +205,8 @@ class PreLogComponent extends React.Component{
 
       <button className="lgreen height2" onClick={
         ()=>{
-          console.log("dsdfsdfsdfop");
             WebViewIfAPI.SetOrientationEnable(true);
-
-        }
-
-        }>ddd</button>
+        }}>ddd</button>
       <pre className="height10 textarea" >
         {JSON.stringify(this.state.sysData.system_log,null,4)}
       </pre>
@@ -276,18 +250,15 @@ class BodyComponent extends React.Component{
       break;
 
       case UIAct.UI_BodyPage.RadarView:
-        body= <PokemonRadarComponent  addClass={this.props.addClass}/>
       break;
 
       case UIAct.UI_BodyPage.PokeSelectView:
-        body= <PokemonSelectComponent  addClass={this.props.addClass}/>
       break;
     }
     return body;
 
   }
 }
-
 
 class APPMaster extends React.Component{
 
@@ -327,9 +298,6 @@ class APPMaster extends React.Component{
     </div>);
   }
 }
-
-
-
 
 class APPMasterX extends React.Component{
 
@@ -374,6 +342,5 @@ class APPMasterX extends React.Component{
       </$CSSTG>);
   }
 }
-
 
 ReactDOM.render(<APPMasterX/>,document.getElementById('container'));

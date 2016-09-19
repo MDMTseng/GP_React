@@ -3,8 +3,6 @@ import * as TestReducer from "./reducer/calcReducer";
 import {UICtrlReducer} from "./reducer/UICtrlReducer";
 import {SysStateReducer} from "./reducer/SysStateReducer";
 import {UserReducer} from "./reducer/UserReducer";
-import {PokemonRadarReducer} from "./reducer/PokemonRadarReducer";
-import {PokemonSelectReducer} from "./reducer/PokemonSelectReducer";
 import { stimulator } from "./stimulator";
 import * as midware from "./middleware/middleware";
 import thunk from 'redux-thunk';
@@ -17,8 +15,6 @@ export function ReducStoreSetUp(presistStore){
     sysData:SysStateReducer,
     UIData:UICtrlReducer,
     AppData:combineReducers({
-      PokemonRadarData:PokemonRadarReducer,
-      PokemonSelectData:PokemonSelectReducer,
       UserData:UserReducer
     })
   })
