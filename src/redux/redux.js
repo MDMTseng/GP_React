@@ -21,5 +21,5 @@ export function ReducStoreSetUp(presistStore){
 
   const middleware = applyMiddleware(thunk,midware.logger,midware.error_catch);
 
-   return createStore(reducer_C,presistStore,middleware);
+  return createStore(reducer_C,presistStore,middleware);
 }

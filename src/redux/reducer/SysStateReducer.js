@@ -16,7 +16,6 @@ function Default_SysState()
 
 
 export var SysStateReducer = (state = Default_SysState(), action) => {
-  state=Object.assign({},state,{system_log:action});
   if (action.type === SYS_ACT_Type.SERVICE_STATUS_UPDATE) {
     let obj={};
     switch(action.data.sysUrl)
@@ -28,26 +27,6 @@ export var SysStateReducer = (state = Default_SysState(), action) => {
           state.orientationStatus=
           state.GPSStatus = 'disable';
         }
-        return Object.assign({},state,obj);
-        break;
-
-      case ".service.GPS_status":
-
-        if((state.GPSStatus==='enable'  && action.data.value.status==2)||
-           (state.GPSStatus==='disable' && action.data.value.status!=2)
-        )
-            return state;
-        state.GPSStatus=(action.data.value.status==2)?'enable':'disable';
-        return Object.assign({},state,obj);
-        break;
-
-      case ".service.Orientation_status":
-        if((state.orientationStatus==='enable'  && action.data.value.status==2)||
-           (state.orientationStatus==='disable' && action.data.value.status!=2)
-        )
-            return state;
-
-        state.orientationStatus=(action.data.value.status==2)?'enable':'disable';
         return Object.assign({},state,obj);
         break;
 

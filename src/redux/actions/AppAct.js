@@ -1,24 +1,25 @@
-
+import * as UTIL  from '../../UTIL/MISC_Util';
 
 export let APP_ACT_Type= {
-  PokemonSelelectToggle:"PokemonSelelectToggle",
-  PokemonSelectListUpdate:"PokemonSelectListUpdate",
-  SetPokemonSelectList:"SetPokemonSelectList"
+  WebIFData:"WebIFData"
 }
-
-
-
-export function Act_ToggleSelectPokemon(id)
+let schema_WebIFData={
+    "type": "object",
+    "properties": {
+        "url": {"type": "string"}
+    },
+    "required": ["url"]
+}
+export function Act_WebIFData(WebIFData)
 {
-  return {
-    type: APP_ACT_Type.PokemonSelelectToggle,data:id
+  let dataV = UTIL.JsonValidator.validate(WebIFData, schema_WebIFData)
+  if(dataV.errors.length!=0)
+  {
+    console.log(dataV.errors);
+    return null;
   }
-}
 
-
-export function Act_PokemonSelectListUpdate(pokeSelList)
-{
   return {
-    type: APP_ACT_Type.PokemonSelelectListUpdate,data:pokeSelList
+    type: APP_ACT_Type.WebIFData,data:WebIFData
   }
 }

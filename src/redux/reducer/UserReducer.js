@@ -30,23 +30,6 @@ export var UserReducer = (state = Default_UserReducer(), action) => {
     let obj={};
     switch(action.data.sysUrl)
     {
-      case ".service.Orientation_status":
-
-        if(action.data.value.status!=2)break;
-        obj.orientation={};
-        obj.orientation.x = action.data.value.x*DEG2RAD;
-        obj.orientation.y = action.data.value.y*DEG2RAD;
-        obj.orientation.z = action.data.value.z*DEG2RAD;
-
-
-        return Object.assign({},state,obj);
-        break;
-      case ".service.GPS_status":
-        if(action.data.value.status!=2)break;
-        //console.log("LOCATION update>>>>");
-        obj.GPS = action.data.value;
-        return Object.assign({},state,obj);
-        break;
     }
   }
   return state;
