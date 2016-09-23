@@ -5,7 +5,7 @@ function Default_UserReducer()
 {
   return {
     ScanList:{},
-    ConnectionList:[]
+    ConnectionList:{}
   }
 }
 
@@ -29,7 +29,14 @@ export var BLEModuleReducer = (state = Default_UserReducer(), action) => {
       {
         state.ScanList[BLEScanEle.Address]=BLEScanEle;
       }
+    break;
 
+    case "BLE/ev/gatt/connect":
+      state.ConnectionList[action.data.Address]=action.data;
+    break;
+
+    case "BLE/ev/gatt/disconnect":
+      delete state.ConnectionList[action.data.Address];
     break;
   }
   return state;
@@ -47,11 +54,22 @@ const schema_BLEScanEle={
         "AdvData":{"type": "array"},
         "ScanData":{"type": "array"}
     },
-    "required": ["Name", "Address", "RSSI"]
+    "required": [ "Address", "RSSI"]
 }
 const schema_BLEScanList={
     "type": "array",
     "items": schema_BLEScanEle,
     "minItems":1,
     "uniqueItems": true
+}
+const schema_BLEGattEle={
+    "type": "object",
+    "properties": {
+        "Name": {"type": "string"},
+        "Address": {"type": "string"},
+        "status": {"type": "number"},
+        "AdvData":{"type": "array"},
+        "ScanData":{"type": "array"},
+    },
+    "required": [ "Address", "RSSI"]
 }
