@@ -4,7 +4,7 @@ import * as UTIL  from '../../UTIL/MISC_Util';
 function Default_UserReducer()
 {
   return {
-    ScanList:[],
+    ScanList:{},
     ConnectionList:[]
   }
 }
@@ -23,9 +23,12 @@ export var BLEModuleReducer = (state = Default_UserReducer(), action) => {
       if(dataV.errors.length!=0)
       {
         console.log(dataV.errors);
-        return null;
+        return state;
       }
-
+      for(let BLEScanEle in action.data)
+      {
+        state.ScanList[BLEScanEle.Address]=BLEScanEle;
+      }
 
     break;
   }
@@ -35,7 +38,7 @@ export var BLEModuleReducer = (state = Default_UserReducer(), action) => {
 
 
 
-const schema_BLEScanList={
+const schema_BLEScanEle={
     "type": "object",
     "properties": {
         "Name": {"type": "string"},

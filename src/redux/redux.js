@@ -2,6 +2,7 @@ import { applyMiddleware, combineReducers, createStore } from "redux";
 import * as TestReducer from "./reducer/calcReducer";
 import {UICtrlReducer} from "./reducer/UICtrlReducer";
 import {SysStateReducer} from "./reducer/SysStateReducer";
+import {BLEModuleReducer} from "./reducer/BLEModuleReducer";
 import {UserReducer} from "./reducer/UserReducer";
 import { stimulator } from "./stimulator";
 import * as midware from "./middleware/middleware";
@@ -15,7 +16,8 @@ export function ReducStoreSetUp(presistStore){
     sysData:SysStateReducer,
     UIData:UICtrlReducer,
     AppData:combineReducers({
-      UserData:UserReducer
+      UserData:UserReducer,
+      BLEModule:BLEModuleReducer
     })
   })
 
