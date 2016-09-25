@@ -21,7 +21,7 @@ inputFlow.StoreInitDataPromise.then((StoreData)=>{
   StoreRestorePromise.callBack.res(Store);
 
   setTimeout(()=>{
-    WebViewIfAPI.SetServiceEnable(true);
+    //WebViewIfAPI.SetServiceEnable(true);
   },200);
 
 })

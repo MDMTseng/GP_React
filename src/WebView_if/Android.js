@@ -22,27 +22,31 @@ function mocking()
         reduxStore:{}
       }
     }));
+
+    WebViewIfx.ToWeb(JSON.stringify({
+      url:"BLEModule/ev/connect",
+      data:{
+        addr:"ADDR11",
+        role:"master"
+      }
+    }));
+    WebViewIfx.ToWeb(JSON.stringify({
+      url:"BLEModule/ev/disconnect",
+      data:{
+        addr:"ADDR11"
+      }
+    }));
   },100);
 
 }
 export let GetCommIF=()=>WebViewIfx;
 
 export let WebViewIfAPI={
-  SetServiceEnable:(isEnable)=>WebViewIfx.FromWeb(JSON.stringify({
-    url:"MainIF/NotiMonService/enable/"+((isEnable)!=="enable")
-  })),
-
-  SetOrientationEnable:(isEnable)=>WebViewIfx.FromWeb(JSON.stringify({
-    url:"NotiMonServIF/Orientation/"+((isEnable)?"enable":"disable")
-  })),
-
-  SetGPSEnable:(isEnable)=>WebViewIfx.FromWeb(JSON.stringify({
-    url:"NotiMonServIF/GPS/enable/"+((isEnable)!=="enable")
-  })),
 
   SendWebUIStore:(data)=>WebViewIfx.FromWeb(JSON.stringify({
     url:"MainIF/WebUIAPP_Store/POST",
     data:data
   })),
 
+  SendData:(url,data)=>WebViewIfx.FromWeb(JSON.stringify({url,data})),
 }

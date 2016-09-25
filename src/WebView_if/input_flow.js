@@ -6,6 +6,9 @@ import * as AppAct from '../redux/actions/AppAct';
 import PromiseX from '../UTIL/PromiseX';
 
 import {WebViewIfAPI} from './Android';
+
+import ModuleMan from './ModuleMan';
+
 let Store =null;
 
 
@@ -53,6 +56,22 @@ let ToWeb = (json)=>{
     });
     return;
   }
+
+
+  if(obj.url === "MainIF/WebUIAPP_Store/GET")
+  {
+    WebViewIfAPI.SendWebUIStore({
+      reduxStore:Store.getState()
+    });
+    return;
+  }
+  if(obj.url.startsWith(ModuleMan.BLEModule.getAPIName()))
+  {
+    ModuleMan.BLEModule.event_feed(obj);
+    return;
+  }
+
+
 };
 
 export let SetCommIF=(CommIF)=>{CommIF.ToWeb=ToWeb;};
